@@ -121,6 +121,56 @@
 				}
 			},
 			"response": []
+		},
+		{
+			"name": "Get student by phone",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost/api/students/find/phone/8840204447",
+					"host": [
+						"localhost"
+					],
+					"path": [
+						"api",
+						"students",
+						"find",
+						"phone",
+						"8840204447"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get student by name course",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost/api/students/find?name=soniya&course=Spring Boot and Microservices",
+					"host": [
+						"localhost"
+					],
+					"path": [
+						"api",
+						"students",
+						"find"
+					],
+					"query": [
+						{
+							"key": "name",
+							"value": "soniya"
+						},
+						{
+							"key": "course",
+							"value": "Spring Boot and Microservices"
+						}
+					]
+				}
+			},
+			"response": []
 		}
 	]
 }
