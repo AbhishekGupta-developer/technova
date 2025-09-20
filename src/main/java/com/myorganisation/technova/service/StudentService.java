@@ -12,4 +12,7 @@ public interface StudentService {
     List<StudentResponseDto> getAllStudents();
     StudentResponseDto updateStudent(Long id, StudentRequestDto studentRequestDto);
     GenericResponseDto removeStudent(Long id);
+
+    // Custom finder method
+    StudentResponseDto getStudentByPhone(String phone);
 }
