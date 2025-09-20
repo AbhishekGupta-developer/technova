@@ -47,4 +47,9 @@ public class StudentController {
     public ResponseEntity<StudentResponseDto> getStudentByPhone(@PathVariable String phone) {
         return new ResponseEntity<>(studentService.getStudentByPhone(phone), HttpStatusCode.valueOf(200));
     }
+
+    @GetMapping("/find")
+    public ResponseEntity<List<StudentResponseDto>> getStudentsByNameAndCourse(@RequestParam String name, @RequestParam String course) {
+        return new ResponseEntity<>(studentService.getStudentsByNameAndCourse(name, course), HttpStatusCode.valueOf(200));
+    }
 }
