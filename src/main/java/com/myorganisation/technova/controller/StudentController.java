@@ -42,4 +42,9 @@ public class StudentController {
     public ResponseEntity<GenericResponseDto> removeStudent(@RequestParam Long id) {
         return new ResponseEntity<>(studentService.removeStudent(id), HttpStatusCode.valueOf(200));
     }
+
+    @GetMapping("/find/phone/{phone}")
+    public ResponseEntity<StudentResponseDto> getStudentByPhone(@PathVariable String phone) {
+        return new ResponseEntity<>(studentService.getStudentByPhone(phone), HttpStatusCode.valueOf(200));
+    }
 }
