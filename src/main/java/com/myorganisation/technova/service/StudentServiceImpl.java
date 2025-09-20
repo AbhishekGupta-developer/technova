@@ -76,6 +76,11 @@ public class StudentServiceImpl implements StudentService {
         return genericResponseDto;
     }
 
+    @Override
+    public StudentResponseDto getStudentByPhone(String phone) {
+        return mapStudentToStudentResponseDto(studentRepository.findByPhone(phone).orElse(null));
+    }
+
     // Helper method
 
     // Map Student to StudentResponseDto
