@@ -15,4 +15,5 @@ public interface StudentService {
 
     // Custom finder method
     StudentResponseDto getStudentByPhone(String phone);
+    List<StudentResponseDto> getStudentsByNameAndCourse(String name, String course);
 }
