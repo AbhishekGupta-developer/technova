@@ -171,6 +171,27 @@
 				}
 			},
 			"response": []
+		},
+		{
+			"name": "Get students by course",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost/api/students/find/course/Spring Boot",
+					"host": [
+						"localhost"
+					],
+					"path": [
+						"api",
+						"students",
+						"find",
+						"course",
+						"Spring Boot"
+					]
+				}
+			},
+			"response": []
 		}
 	]
 }
