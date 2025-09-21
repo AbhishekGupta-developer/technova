@@ -52,4 +52,9 @@ public class StudentController {
     public ResponseEntity<List<StudentResponseDto>> getStudentsByNameAndCourse(@RequestParam String name, @RequestParam String course) {
         return new ResponseEntity<>(studentService.getStudentsByNameAndCourse(name, course), HttpStatusCode.valueOf(200));
     }
+
+    @GetMapping("/find/course/{course}")
+    public ResponseEntity<List<StudentResponseDto>> getStudentsByCourse(@PathVariable String course) {
+        return new ResponseEntity<>(studentService.getStudentsByCourse(course), HttpStatusCode.valueOf(200));
+    }
 }
