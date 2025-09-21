@@ -23,4 +23,7 @@ public interface StudentRepository extends JpaRepository<Student, Long> {
     // Custom Native Query - SQL
     @Query(value = "SELECT s.* FROM students s WHERE s.name LIKE CONCAT('%', :q, '%')", nativeQuery = true)
     List<Student> searchStudentsByName(@Param("q") String name);
+
+    @Query(value = "SELECT s.* FROM students s WHERE s.course = ?1 AND s.phone = ?2", nativeQuery = true)
+    List<Student> searchStudentsByCourseAndPhone(String course, String phone);
 }
