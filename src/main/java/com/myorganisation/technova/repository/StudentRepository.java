@@ -19,4 +19,8 @@ public interface StudentRepository extends JpaRepository<Student, Long> {
     // Custom JPQL -> Java Persistence Query Language
     @Query("SELECT s FROM Student s WHERE s.course = :course")
     List<Student> getStudentsByCourse(@Param("course") String course);
+
+    // Custom Native Query - SQL
+    @Query(value = "SELECT s.* FROM students s WHERE s.name LIKE CONCAT('%', :q, '%')", nativeQuery = true)
+    List<Student> searchStudentsByName(@Param("q") String name);
 }
