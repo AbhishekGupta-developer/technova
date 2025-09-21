@@ -105,6 +105,18 @@ public class StudentServiceImpl implements StudentService {
         return studentResponseDtoList;
     }
 
+    @Override
+    public List<StudentResponseDto> searchStudentsByName(String name) {
+        List<Student> studentList = new LinkedList<>(studentRepository.searchStudentsByName(name));
+        List<StudentResponseDto> studentResponseDtoList = new LinkedList<>();
+
+        for(Student student : studentList) {
+            studentResponseDtoList.add(mapStudentToStudentResponseDto(student));
+        }
+
+        return studentResponseDtoList;
+    }
+
     // Helper method
 
     // Map Student to StudentResponseDto
