@@ -192,6 +192,27 @@
 				}
 			},
 			"response": []
+		},
+		{
+			"name": "Search students by name",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost/api/students/search/name/Soniya",
+					"host": [
+						"localhost"
+					],
+					"path": [
+						"api",
+						"students",
+						"search",
+						"name",
+						"Soniya"
+					]
+				}
+			},
+			"response": []
 		}
 	]
 }
