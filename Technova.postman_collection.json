@@ -213,6 +213,29 @@
 				}
 			},
 			"response": []
+		},
+		{
+			"name": "Search students by course and phone",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost/api/students/search/course/Spring Boot and Microservices/phone/8840204442",
+					"host": [
+						"localhost"
+					],
+					"path": [
+						"api",
+						"students",
+						"search",
+						"course",
+						"Spring Boot and Microservices",
+						"phone",
+						"8840204442"
+					]
+				}
+			},
+			"response": []
 		}
 	]
 }
