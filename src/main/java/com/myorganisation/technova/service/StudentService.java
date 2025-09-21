@@ -18,4 +18,6 @@ public interface StudentService {
     List<StudentResponseDto> getStudentsByNameAndCourse(String name, String course);
 
     List<StudentResponseDto> getStudentsByCourse(String course);
+
+    List<StudentResponseDto> searchStudentsByName(String name);
 }
