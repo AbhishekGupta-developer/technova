@@ -1,5 +1,6 @@
 package com.myorganisation.technova.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.Data;
 
@@ -13,4 +14,9 @@ public class Account {
 
     private Double total;
     private Double due;
+
+    @OneToOne(mappedBy = "account")
+    @JoinColumn(name = "student")
+    @JsonIgnore
+    private Student student;
 }
