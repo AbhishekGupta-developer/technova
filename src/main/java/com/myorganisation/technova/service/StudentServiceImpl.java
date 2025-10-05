@@ -3,7 +3,9 @@ package com.myorganisation.technova.service;
 import com.myorganisation.technova.dto.request.StudentRequestDto;
 import com.myorganisation.technova.dto.response.GenericResponseDto;
 import com.myorganisation.technova.dto.response.StudentResponseDto;
+import com.myorganisation.technova.model.Account;
 import com.myorganisation.technova.model.Student;
+import com.myorganisation.technova.repository.AccountRepository;
 import com.myorganisation.technova.repository.StudentRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -17,9 +19,35 @@ public class StudentServiceImpl implements StudentService {
     @Autowired
     private StudentRepository studentRepository;
 
+//    @Autowired
+//    private AccountRepository accountRepository;
+
     @Override
     public StudentResponseDto registerStudent(StudentRequestDto studentRequestDto) {
         Student student = mapStudentRequestDtoToStudent(studentRequestDto, new Student());
+
+        //Manual way
+//        Account account = new Account();
+//        account.setTotal(0D);
+//        account.setDue(0D);
+//
+//        accountRepository.save(account);
+//
+//        student.setAccount(account);
+//
+//        studentRepository.save(student);
+//
+//        account.setStudent(student);
+//
+//        accountRepository.save(account);
+
+        //Using cascade
+        Account account = new Account();
+        account.setTotal(0D);
+        account.setDue(0D);
+
+        student.setAccount(account);
+        account.setStudent(student);
 
         studentRepository.save(student);
 
@@ -138,6 +166,7 @@ public class StudentServiceImpl implements StudentService {
         studentResponseDto.setName(student.getName());
         studentResponseDto.setCourse(student.getCourse());
         studentResponseDto.setPhone(student.getPhone());
+        studentResponseDto.setAccount(student.getAccount());
 
         return studentResponseDto;
     }
