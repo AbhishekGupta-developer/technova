@@ -14,4 +14,8 @@ public class Student {
     private String name;
     private String course;
     private String phone;
+
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "account")
+    private Account account;
 }
