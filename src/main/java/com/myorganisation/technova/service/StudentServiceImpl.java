@@ -1,15 +1,18 @@
 package com.myorganisation.technova.service;
 
 import com.myorganisation.technova.dto.request.StudentRequestDto;
+import com.myorganisation.technova.dto.response.CourseResponseDto;
 import com.myorganisation.technova.dto.response.GenericResponseDto;
 import com.myorganisation.technova.dto.response.StudentResponseDto;
 import com.myorganisation.technova.model.Account;
+import com.myorganisation.technova.model.Course;
 import com.myorganisation.technova.model.Student;
-import com.myorganisation.technova.repository.AccountRepository;
+import com.myorganisation.technova.repository.CourseRepository;
 import com.myorganisation.technova.repository.StudentRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -18,6 +21,9 @@ public class StudentServiceImpl implements StudentService {
 
     @Autowired
     private StudentRepository studentRepository;
+
+    @Autowired
+    private CourseRepository courseRepository;
 
 //    @Autowired
 //    private AccountRepository accountRepository;
@@ -161,10 +167,23 @@ public class StudentServiceImpl implements StudentService {
 
     // Map Student to StudentResponseDto
     private StudentResponseDto mapStudentToStudentResponseDto(Student student) {
+        List<Course> courseList = student.getCourses();
+        List<CourseResponseDto> courseResponseDtoList = new ArrayList<>();
+
+        for(Course course : courseList) {
+            CourseResponseDto courseResponseDto = new CourseResponseDto();
+            courseResponseDto.setId(course.getId());
+            courseResponseDto.setName(course.getName());
+            courseResponseDto.setFee(course.getFee());
+            courseResponseDto.setDuration(course.getDuration());
+
+            courseResponseDtoList.add(courseResponseDto);
+        }
+
         StudentResponseDto studentResponseDto = new StudentResponseDto();
         studentResponseDto.setId(student.getId());
         studentResponseDto.setName(student.getName());
-        studentResponseDto.setCourse(student.getCourse());
+        studentResponseDto.setCourses(courseResponseDtoList);
         studentResponseDto.setPhone(student.getPhone());
         studentResponseDto.setAccount(student.getAccount());
 
@@ -174,8 +193,16 @@ public class StudentServiceImpl implements StudentService {
     // Map StudentRequestDto to Student
     private Student mapStudentRequestDtoToStudent(StudentRequestDto studentRequestDto, Student student) {
         student.setName(studentRequestDto.getName());
-        student.setCourse(studentRequestDto.getCourse());
         student.setPhone(studentRequestDto.getPhone());
+
+        List<Long> courses = studentRequestDto.getCourses();
+        List<Course> courseList = new ArrayList<>();
+
+        for(Long courseId : courses) {
+            courseList.add(courseRepository.findById(courseId).orElse(null));
+        }
+
+        student.setCourses(courseList);
 
         return student;
     }
