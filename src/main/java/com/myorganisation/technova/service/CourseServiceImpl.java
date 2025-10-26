@@ -6,6 +6,10 @@ import com.myorganisation.technova.dto.response.GenericResponseDto;
 import com.myorganisation.technova.model.Course;
 import com.myorganisation.technova.repository.CourseRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.util.LinkedList;
@@ -102,5 +106,38 @@ public class CourseServiceImpl implements CourseService {
         }
 
         return genericResponseDto;
+    }
+
+    @Override
+    public Page<CourseResponseDto> getCoursePage(Integer pageIndex, Integer pageSize, String sortBy, String sortIn) {
+        Sort sort = (sortIn.equalsIgnoreCase("asc") ?
+                Sort.by(sortBy).ascending() :
+                Sort.by(sortBy).descending());
+
+        Pageable pageable = PageRequest.of(pageIndex, pageSize, sort);
+
+        Page<Course> coursePage = courseRepository.findAll(pageable);
+        Page<CourseResponseDto> courseResponseDtoPage = coursePage.map(
+                course -> mapCourseToCourseResponseDto(course)
+        );
+
+        return courseResponseDtoPage;
+    }
+
+    // Helper methods
+
+    // Map Course into CourseResponseDto
+    private CourseResponseDto mapCourseToCourseResponseDto(Course course) {
+        if(course == null) {
+            return null;
+        }
+
+        CourseResponseDto courseResponseDto = new CourseResponseDto();
+        courseResponseDto.setId(course.getId());
+        courseResponseDto.setName(course.getName());
+        courseResponseDto.setFee(course.getFee());
+        courseResponseDto.setDuration(course.getDuration());
+
+        return courseResponseDto;
     }
 }
