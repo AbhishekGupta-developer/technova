@@ -5,6 +5,7 @@ import com.myorganisation.technova.dto.response.CourseResponseDto;
 import com.myorganisation.technova.dto.response.GenericResponseDto;
 import com.myorganisation.technova.service.CourseService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -41,5 +42,15 @@ public class CourseController {
     @DeleteMapping
     public ResponseEntity<GenericResponseDto> removeCourse(@RequestParam Long id) {
         return new ResponseEntity<>(courseService.removeCourse(id), HttpStatusCode.valueOf(200));
+    }
+
+    @GetMapping("/page")
+    public ResponseEntity<Page<CourseResponseDto>> getCoursePage(
+            @RequestParam(defaultValue = "0") Integer pageIndex,
+            @RequestParam(defaultValue = "10") Integer pageSize,
+            @RequestParam(defaultValue = "id") String sortBy,
+            @RequestParam(defaultValue = "asc") String sortIn
+    ) {
+        return new ResponseEntity<>(courseService.getCoursePage(pageIndex, pageSize, sortBy, sortIn), HttpStatusCode.valueOf(200));
     }
 }
