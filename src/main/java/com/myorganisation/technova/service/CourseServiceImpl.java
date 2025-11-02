@@ -11,6 +11,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -22,12 +23,20 @@ public class CourseServiceImpl implements CourseService {
     private CourseRepository courseRepository;
 
     @Override
+    @Transactional
     public CourseResponseDto addCourse(CourseRequestDto courseRequestDto) {
         Course course = new Course();
         course.setName(courseRequestDto.getName());
         course.setFee(courseRequestDto.getFee());
         course.setDuration(courseRequestDto.getDuration());
 
+        courseRepository.save(course);
+
+        course.setFaculty("Abhishek");
+
+//        if(true) {
+//            throw new RuntimeException();
+//        }
         courseRepository.save(course);
 
         CourseResponseDto courseResponseDto = new CourseResponseDto();
