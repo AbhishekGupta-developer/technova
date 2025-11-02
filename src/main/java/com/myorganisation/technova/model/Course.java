@@ -17,6 +17,7 @@ public class Course {
     private String name;
     private Double fee;
     private Double duration;
+    private String faculty;
 
     @ManyToMany(mappedBy = "courses")
     private List<Student> students = new ArrayList<>();
