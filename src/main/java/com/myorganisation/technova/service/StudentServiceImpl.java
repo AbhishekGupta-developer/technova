@@ -4,6 +4,7 @@ import com.myorganisation.technova.dto.request.StudentRequestDto;
 import com.myorganisation.technova.dto.response.CourseResponseDto;
 import com.myorganisation.technova.dto.response.GenericResponseDto;
 import com.myorganisation.technova.dto.response.StudentResponseDto;
+import com.myorganisation.technova.exception.StudentNotFoundException;
 import com.myorganisation.technova.model.Account;
 import com.myorganisation.technova.model.Course;
 import com.myorganisation.technova.model.Student;
@@ -62,7 +63,10 @@ public class StudentServiceImpl implements StudentService {
 
     @Override
     public StudentResponseDto getStudent(Long id) {
-        Student student = studentRepository.findById(id).orElse(null);
+        Student student = studentRepository.findById(id)
+                .orElseThrow(
+                        () -> new StudentNotFoundException("Student id: " + id + " doesn't exist.")
+                );
 
         return mapStudentToStudentResponseDto(student);
     }
