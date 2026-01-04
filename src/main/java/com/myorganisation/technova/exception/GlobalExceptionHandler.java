@@ -27,4 +27,13 @@ public class GlobalExceptionHandler {
 
         return new ResponseEntity<>(genericResponseDto, HttpStatusCode.valueOf(400));
     }
+
+    @ExceptionHandler(UserNotFoundException.class)
+    public ResponseEntity<GenericResponseDto> handleUserNotFoundException(UserNotFoundException e) {
+        GenericResponseDto genericResponseDto = new GenericResponseDto();
+        genericResponseDto.setSuccess(false);
+        genericResponseDto.setMessage(e.getMessage());
+
+        return new ResponseEntity<>(genericResponseDto, HttpStatusCode.valueOf(404));
+    }
 }
