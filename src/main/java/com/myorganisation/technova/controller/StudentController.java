@@ -20,6 +20,7 @@ public class StudentController {
 
     @PostMapping
     public ResponseEntity<StudentResponseDto> registerStudent(@RequestBody StudentRequestDto studentRequestDto) {
+        System.out.println("Inside register student");
         return new ResponseEntity<>(studentService.registerStudent(studentRequestDto), HttpStatusCode.valueOf(201));
     }
 

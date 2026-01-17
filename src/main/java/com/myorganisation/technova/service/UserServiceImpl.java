@@ -6,6 +6,7 @@ import com.myorganisation.technova.exception.UserNotFoundException;
 import com.myorganisation.technova.model.User;
 import com.myorganisation.technova.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -14,14 +15,19 @@ public class UserServiceImpl implements UserService {
     @Autowired
     private UserRepository userRepository;
 
+    @Autowired
+    private PasswordEncoder passwordEncoder;
+
     @Override
     public UserResponseDto registerUser(UserRequestDto userRequestDto) {
         User user = new User();
         user.setEmail(userRequestDto.getEmail());
         user.setFirstName(userRequestDto.getFirstName());
         user.setLastName(userRequestDto.getLastName());
+        user.setGender(userRequestDto.getGender());
+        user.setRole(userRequestDto.getRole());
         user.setUsername(userRequestDto.getUsername());
-        user.setPassword(userRequestDto.getPassword());
+        user.setPassword(passwordEncoder.encode(userRequestDto.getPassword()));
 
         userRepository.save(user);
 
@@ -44,6 +50,8 @@ public class UserServiceImpl implements UserService {
         userResponseDto.setFirstName(user.getFirstName());
         userResponseDto.setLastName(user.getLastName());
         userResponseDto.setUsername(user.getUsername());
+        userResponseDto.setGender(user.getGender());
+        userResponseDto.setRole(user.getRole());
 
         return userResponseDto;
     }
